@@ -13,16 +13,6 @@ The project includes the following features:
 - **Programming Language:** Python
 - **Library:** cryptography
 
-## Exemplo de uso
-mensagem = "Esta é uma mensagem secreta."
-chave = "minha_chave_secreta"
-
-mensagem_cifrada = encrypt(mensagem, chave)
-print(f"Mensagem Cifrada: {mensagem_cifrada}")
-
-mensagem_decifrada = decrypt(mensagem_cifrada, chave)
-print(f"Mensagem Decifrada: {mensagem_decifrada}")
-
 
 ## Execution
 <div align="center"> <img src="./images/encryption.png" alt="Encryption Screenshot" width="400"/> </div>
@@ -72,6 +62,16 @@ def decrypt(encrypted_message, password):
     decryptor = cipher.decryptor()
     
     decrypted_message = decryptor.update(encrypted_message[16:]) + decryptor.finalize()
+
+# Exemplo de uso
+mensagem = "Esta é uma mensagem secreta."
+chave = "minha_chave_secreta"
+
+mensagem_cifrada = encrypt(mensagem, chave)
+print(f"Mensagem Cifrada: {mensagem_cifrada}")
+
+mensagem_decifrada = decrypt(mensagem_cifrada, chave)
+print(f"Mensagem Decifrada: {mensagem_decifrada}")
     
     unpadder = padding.PKCS7(128).unpadder()
     unpadded_message = unpadder.update(decrypted_message) + unpadded_message.finalize()
