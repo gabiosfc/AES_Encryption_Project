@@ -27,11 +27,12 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import padding, hashes
 from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import constant_time
 import os
 import base64
 
 def generate_key(password):
-    salt = b'salt_'  
+    salt = b'salt_'  # Use a proper random salt in real applications
     kdf = PBKDF2HMAC(
         algorithm=hashes.SHA256(),
         length=32,
@@ -62,6 +63,11 @@ def decrypt(encrypted_message, password):
     decryptor = cipher.decryptor()
     
     decrypted_message = decryptor.update(encrypted_message[16:]) + decryptor.finalize()
+    
+    unpadder = padding.PKCS7(128).unpadder()
+    unpadded_message = unpadder.update(decrypted_message) + unpadder.finalize()
+    
+    return unpadded_message.decode()
 
 # Exemplo de uso
 mensagem = "Esta é uma mensagem secreta."
@@ -72,10 +78,5 @@ print(f"Mensagem Cifrada: {mensagem_cifrada}")
 
 mensagem_decifrada = decrypt(mensagem_cifrada, chave)
 print(f"Mensagem Decifrada: {mensagem_decifrada}")
-    
-    unpadder = padding.PKCS7(128).unpadder()
-    unpadded_message = unpadder.update(decrypted_message) + unpadded_message.finalize()
-    
-    return unpadded_message.decode()
 
 
