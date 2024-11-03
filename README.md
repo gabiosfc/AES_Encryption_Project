@@ -13,7 +13,7 @@ The project includes the following features:
 - **Programming Language:** Python
 - **Library:** cryptography
 
-# Exemplo de uso
+## Exemplo de uso
 mensagem = "Esta é uma mensagem secreta."
 chave = "minha_chave_secreta"
 
@@ -25,7 +25,8 @@ print(f"Mensagem Decifrada: {mensagem_decifrada}")
 
 
 ## Execution
-<div align="center"> <img src="./images/encryption.png" alt="Encryption Screenshot" width="400"/> <img src="./images/decryption.png" alt="Decryption Screenshot" width="400"/> </div>
+<div align="center"> <img src="./images/encryption.png" alt="Encryption Screenshot" width="400"/> </div>
+<div align="center"> <img src="./images/decryption.png" alt="Decryption Screenshot" width="400"/> </div>
 
 ## Author
 Code by Gabriela Oliveira
