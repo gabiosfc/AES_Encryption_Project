@@ -2,11 +2,12 @@
 *
 
 # Allow only these directories and files
-!/src
-!/images
+!src/
+!src/**
+!images/
+!images/**
 !*.md
 !.gitignore
-
 
 # Ignore specific files in these directories
 src/__pycache__/
