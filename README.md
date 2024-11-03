@@ -13,6 +13,23 @@ The project includes the following features:
 - **Programming Language:** Python
 - **Library:** cryptography
 
+# Exemplo de uso
+mensagem = "Esta é uma mensagem secreta."
+chave = "minha_chave_secreta"
+
+mensagem_cifrada = encrypt(mensagem, chave)
+print(f"Mensagem Cifrada: {mensagem_cifrada}")
+
+mensagem_decifrada = decrypt(mensagem_cifrada, chave)
+print(f"Mensagem Decifrada: {mensagem_decifrada}")
+
+
+## Execution
+<div align="center"> <img src="./images/encryption.png" alt="Encryption Screenshot" width="400"/> <img src="./images/decryption.png" alt="Decryption Screenshot" width="400"/> </div>
+
+## Author
+Code by Gabriela Oliveira
+
 ## Usage
 ```python
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
@@ -60,58 +77,4 @@ def decrypt(encrypted_message, password):
     
     return unpadded_message.decode()
 
-# Exemplo de uso
-mensagem = "Esta é uma mensagem secreta."
-chave = "minha_chave_secreta"
 
-mensagem_cifrada = encrypt(mensagem, chave)
-print(f"Mensagem Cifrada: {mensagem_cifrada}")
-
-mensagem_decifrada = decrypt(mensagem_cifrada, chave)
-print(f"Mensagem Decifrada: {mensagem_decifrada}")
-
-
-## Execution
-<div align="center"> <img src="./images/encryption.png" alt="Encryption Screenshot" width="400"/> <img src="./images/decryption.png" alt="Decryption Screenshot" width="400"/> </div>
-
-## Author
-Code by Gabriela Oliveira
-
-
-### Conteúdo do `main.py`
-```python
-from Crypto.Cipher import AES
-from Crypto.Random import get_random_bytes
-import base64
-
-def pad(s):
-    return s + (AES.block_size - len(s) % AES.block_size) * chr(AES.block_size - len(s) % AES.block_size)
-
-def unpad(s):
-    return s[:-ord(s[len(s)-1:])]
-
-def encrypt(message, key):
-    key = key.ljust(32)[:32]  
-    message = pad(message)
-    iv = get_random_bytes(AES.block_size)
-    cipher = AES.new(key.encode('utf-8'), AES.MODE_CBC, iv)
-    encrypted_message = iv + cipher.encrypt(message.encode('utf-8'))
-    return base64.b64encode(encrypted_message).decode('utf-8')
-
-def decrypt(encrypted_message, key):
-    key = key.ljust(32)[:32]  
-    encrypted_message = base64.b64decode(encrypted_message)
-    iv = encrypted_message[:AES.block_size]
-    cipher = AES.new(key.encode('utf-8'), AES.MODE_CBC, iv)
-    decrypted_message = unpad(cipher.decrypt(encrypted_message[AES.block_size:])).decode('utf-8')
-    return decrypted_message
-
-# Exemplo de uso
-mensagem = "Esta é uma mensagem secreta."
-chave = "minha_chave_secreta"
-
-mensagem_cifrada = encrypt(mensagem, chave)
-print(f"Mensagem Cifrada: {mensagem_cifrada}")
-
-mensagem_decifrada = decrypt(mensagem_cifrada, chave)
-print(f"Mensagem Decifrada: {mensagem_decifrada}")
